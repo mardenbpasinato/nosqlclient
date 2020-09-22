@@ -8,7 +8,7 @@ ENV GOSU_VERSION 1.10
 # default values for Meteor environment variables
 ENV ROOT_URL http://localhost
 
-ENV PORT 3000
+ENV PORT 8888
 ENV INSTALL_MONGO true
 ENV MONGOCLIENT_DEFAULT_CONNECTION_URL ''
 ENV MONGOCLIENT_CONNECTIONS_FILE_PATH /opt/meteor/dist/predefined_connections.json
@@ -41,7 +41,10 @@ RUN cd $APP_SOURCE_DIR && \
 # fix tunnel-ssh npm missing module
 RUN cp -R $APP_BUNDLE_DIR/bundle/programs/server/npm/node_modules/tunnel-ssh $APP_BUNDLE_DIR/bundle/programs/server/npm/node_modules/meteor/modules-runtime/node_modules/
 
-EXPOSE 3000
+# copy tsuru.yml to make healthcheck work
+COPY tsuru.yml $APP_BUNDLE_DIR/bundle
+
+EXPOSE 8888
 USER node
 WORKDIR $APP_BUNDLE_DIR/bundle
 

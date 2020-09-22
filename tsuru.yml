@@ -1,0 +1,7 @@
+healthcheck:
+  path: /healthcheck
+  scheme: http
+  method: GET
+  status: 200
+  match: .*
+  allowed_failures: 5
